@@ -1,15 +1,12 @@
 Rails.application.routes.draw do
+  # devise_for :admin_users, ActiveAdmin::Devise.config
+#   ActiveAdmin.routes(self)
 
-
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-
-
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  root 'products#index'
+  root 'users#login_index'
    
+#   ==============================Login Portions==================================================================
+
+  get 'auth0_login' , to: "auth0#auth0_login", as: :auth0_login
 
   get '/auth/auth0/callback' => 'auth0#callback'
 
@@ -17,8 +14,12 @@ Rails.application.routes.draw do
 
   get '/auth/logout' => 'auth0#logout'
 
+  get "/login", to: "users#login_index" , as: :login_index
+
   #---------------------------------Product and Product index--------------------------------------------------------
-   get "/landing_page", to: "products#index" , as: :index 
+  
+  get "/landing_page", to: "products#index" , as: :index 
+   
    get "/product/product_index", to: "products#product_index", as: :product_index
    
    post "/products/all_product", to: "products#all_product"
@@ -47,16 +48,16 @@ Rails.application.routes.draw do
 
   #--------------------------------------User--------------------------------------------------------
    get "/users/get_user", to: "users#user_index", as: :user_index
-   
-   get "/users/new_user", to:  "users#new_user", as: :new_user
 
    get "/users/edit_user/:unique_id", to:  "users#edit_user", as: :edit_user
 
    put "/users/update_user/:unique_id", to:  "users#update_user",as: :update_user
 
-   post "/users/create_user", to:  "users#create_user"
+   post "/users/create_user", to:  "users#create_user",as: :create_user
 
-   post "/users/verify_user", to:  "users#verify_user"
+   post "/users/verify_user", to:  "users#verify_user",as: :verify_user
+
+   post "/users/update_password", to:  "users#update_password",as: :update_password
 
 
    delete "/users/delete_user", to:  "user#delete_user"
@@ -86,11 +87,6 @@ Rails.application.routes.draw do
    
    delete "/carts/delete_cart/:product_unique_id", to:  "carts#delete_cart"
 
-
-  
-
-   #  get "carts/new_pay", to: "carts#new_pay", as: :new_pay
-
    get "/carts/create_pay", to: "carts#create_pay"
 
      
@@ -101,8 +97,10 @@ Rails.application.routes.draw do
    get "/payments/get_payment", to: "payments#payment_index", as: :payment_index
    
 
-   #--------------------------------------Contact-----------------------------------------------------------
+   #--------------------------------------Contact and about-----------------------------------------------------------
    get "/products/contact", to: "products#contact_us", as: :contact_us 
+
+   get "/products/about_us", to: "products#about", as: :about 
 
    # ===================================Wishlist======================================================
 
@@ -117,9 +115,9 @@ Rails.application.routes.draw do
 # ---------------------------Order==========================================
    get "/orders/order_confirmation", to:  "orders#order_index", as: :order_index
 
-   get "download", to: "orders#download"
-
+   get "/invoice_generate", to: "orders#invoice_generate"
    
+   get "/invoice_download", to: "orders#invoice_download", as: :invoice_download
 
 # ---------------------------Delivery==========================================
    get "/orders/delivery_index", to:  "orders#delivery_index", as: :delivery_index
@@ -136,8 +134,26 @@ Rails.application.routes.draw do
    #---------------------------cart-mailer---------------------------------------
    post "/carts/create_cart", to: "carts#create_cart"
 
-   get "/users/login_index", to: "users#login_index",  as: :login_index
 
-   get "/users/logout", to: "users#logout"
+   get "/users/logout", to: "users#logout", as: :logout
+
+   get "/new_user", to: "users#new_user", as: :new_user 
+
+   get "/forget_password", to: "users#forget_password", as: :forget_password 
+
+ #  ====================================================================
+
+
+#  ---------------------------------Owner Routes-----------------------
+
+
+get "/carts/order_log_index", to: "orders#order_log_index", as: :order_log_index
+
+  get "/product_owner_index",to: "products#product_owner_index", as: :product_owner_index
+
+  post "/products/products_for_owner", to: "products#products_for_owner"
+
+  post "/order/get_order_logs", to: "orders#get_order_logs"
+  
 
 end

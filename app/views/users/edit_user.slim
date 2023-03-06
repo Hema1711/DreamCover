@@ -36,7 +36,7 @@ body [
                 .col-xl-6.col-lg-6.col-md-6.col-sm-6.col-12
                   .form-group
                     label.lable-class[for="phone"]  Phone Number
-                    = form.text_field :phone_number, class:"box-class", placeholder:"Enter Phone Number", id:"phone", data: {"user-target" => "phone_number" , action: "focusout->user#phone_validation" }
+                    = form.text_field :phone_number, class:"box-class", placeholder:"Enter Phone Number", id:"phone",maxlength:"10", data: {"user-target" => "phone_number" , action: "focusout->user#phone_validation" }
                 .col-xl-6.col-lg-6.col-md-6.col-sm-6.col-12
                  .form-group
                     label.lable-class[for="email"]  Email
@@ -69,7 +69,6 @@ body [
                 .col-xl-12.col-lg-12.col-md-12.col-sm-12.col-12
                   .text-right
                     .right_align
-                        = form.submit class:'create btn btn-outline-success' , data: {action: 'click-> user#create_user'}
+                        = form.button class:'btn-success' ,style:"font-size:20px;     background: black;"
                     .right_align
-                      button.btn.btn-outline-dark
-                        a.hyper href="/users/get_user"  Cancel 
+                        a.hyper href="/users/get_user" type="button" class="btn btn-dark index-anch" tyle="font-size: 14px;border-radius: 33px;"  Cancel 

@@ -5,18 +5,21 @@ export default class extends Controller {
 
   static targets=[ "first_name","email","last_name","phone_number",
                   "state","city","country","zipcode", "username_sign_in", "password_sign_in", 
-                "username_sign_up" , "password_sign_up", "phonenumber_sign_up"]
+                "username_sign_up" , "password_sign_up", "phonenumber_sign_up","notice_message"]
 
   connect() {
     console.log("Connected! User")
     this.get_user_location()
+    var notice = this.notice_messageTarget
+    setTimeout(function(){notice.remove()},3000)
   }
 
   create_user(){
+
     var email = this.username_sign_upTarget.value
     var password = this.password_sign_upTarget.value
     var phone_number = this.phonenumber_sign_upTarget.value
-    console.log("create_user")
+    console.log("create_user Detail")
     console.log("email" + email)
     console.log("password" + password)
     console.log("phone_number" + phone_number)
@@ -37,7 +40,7 @@ export default class extends Controller {
 
   verify_user(){
     var email = this.username_sign_inTarget.value
-    var password = this.password_sign_inTarget.valueupdate_user
+    var password = this.password_sign_inTarget.value
     console.log("verify_user")
     console.log("email" + email)
     console.log("password" + password)

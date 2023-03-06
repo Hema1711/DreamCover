@@ -1,25 +1,10 @@
 class ApplicationController < ActionController::Base
-
-    before_action :authenticate_owner, only: [:show, :update, :destroy, :edit]
-
-	def authenticate_owner
-		byebug
-		unless user_is_owner?
-		end
-	end
-
-	def user_is_owner
-		user = User.find_by(email:$session_user)
-		user.is_owner
-	end
-
-    
     # helper_method :current_user, :destroy, :user_require
 
 
     # def user_require
     #     if !logged_in
-    #         redirect_to login_path, notice: "Log in Required"
+    #         redirect_to login_index_path, notice: "Log in Required"
     #     end
     # end
 

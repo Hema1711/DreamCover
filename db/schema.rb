@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_10_070826) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_01_124953) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -130,11 +130,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_10_070826) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "invoices", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_unique_id"
+    t.string "cart_unique_id"
+    t.string "invoice_unique_id"
+  end
+
   create_table "order_details", force: :cascade do |t|
     t.integer "order_id"
     t.integer "line_item_id"
     t.integer "quantity"
     t.integer "applied_discount_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "order_items", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -146,6 +159,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_10_070826) do
     t.string "reason"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "order_log_unique_id"
+    t.string "customer_name"
+    t.string "customer_address"
+    t.string "delivery_status"
+    t.string "user_profile"
+    t.string "products_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -154,8 +173,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_10_070826) do
     t.integer "total"
     t.integer "payment_id"
     t.string "order_unique_id"
-    t.string "cart_unique_id"
     t.string "user_unique_id"
+    t.string "delivery_status"
+    t.string "product_id"
+    t.string "customer_name"
+    t.string "customer_address"
+    t.string "user_profile"
   end
 
   create_table "payment_gateways", force: :cascade do |t|
@@ -211,6 +234,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_10_070826) do
     t.string "product_unique_id"
     t.boolean "is_active", default: true
     t.string "product_size"
+    t.string "user_unique_id"
   end
 
   create_table "return_logs", force: :cascade do |t|
@@ -265,8 +289,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_10_070826) do
     t.boolean "is_user", default: true
   end
 
-# Could not dump table "users" because of following StandardError
-#   Unknown type 'password_digest' for column 'password'
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.integer "phone_number"
+    t.string "file_extension"
+    t.integer "address_id"
+    t.string "unique_id"
+    t.string "country"
+    t.string "state"
+    t.string "city"
+    t.integer "pincode"
+    t.boolean "is_active", default: true
+    t.string "cart_unique_id"
+    t.string "password_digest"
+    t.string "roles", default: "user"
+  end
 
   create_table "wishlists", force: :cascade do |t|
     t.datetime "created_at", null: false

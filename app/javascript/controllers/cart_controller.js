@@ -1,32 +1,24 @@
 import { Controller } from "@hotwired/stimulus"
 var load_count    =   0
 var search_text   =   ""
-var cart   = 0
-var quantity = ""
 var product_price = []
 // Connects to data-controller="cart"
 var cart_details =""
 export default class extends Controller {
 
-  static targets  =   ["cartDetail", "cart_is_empty","cart_total", "quantity"]
+  static targets  =   ["cart_is_empty","cart_total", "quantity", "cart_detail", "container"]
 
   connect() {
     this.cart_binding()
   }
 
- 
-
-
 
     cart_binding(){
+      console.log("Quantity ")
       fetch("/carts/cart_details/", {
-
         method:"POST",
         body: JSON.stringify({
-            "load_count"    :   load_count,
-            "search_text"   :   search_text
         }),
-  
         headers: { "content-type": "application/json; charset=UTF-8" }
   
       })
@@ -37,52 +29,44 @@ export default class extends Controller {
         var cart_tax = 25
         let cart_total = data[1]  
         var cart_shipping = 20
-       
+        // console.log(data[0])
 
-        if(data == null){
-          this.cart_is_emptyTarget.style.display =   "block"
+        if(data[0] == ""){
+          // this.cart_is_emptyTarget.style.display =   "block"
+          this.containerTarget.style.display =   "none"
+
+      
+
         }
         else{
-          // console.log("data[0] " + data[0])
+          this.containerTarget.style.display =   "block"
         data[0].forEach(element => {
-          // console.log(element)
-          // console.log(element.product_price)
-
+          console.log(element)
                this.cart_is_emptyTarget.style.display =   "none"
+
+           
+
                product_price.push(element.product_price)
-               detail                                  =  detail + this.dynamic_data(element)
-               
+                detail                                  =  detail + this.dynamic_data(element)
               });
-              // console.log("product_price " + product_price)
-              // console.log("cart_total " + cart_total)
-              this.cartDetailTarget.innerHTML = detail
+              this.cart_detailTarget.innerHTML = detail
             }
-            console.log("Detail  :  "+ cart_details.product_description)
+           
             var cart                                  =   this.cart_total( cart_tax , cart_total,cart_shipping)
-            // this.cart_totalTarget.insertAdjacentHTML("beforeend",cart) 
             this.cart_totalTarget.innerHTML = cart
-          
       })
     }
 
-
-
     cart_calc(data){
-
-      // console.log("CArt Calc")
-      // console.log(data)
         var product_price = []
       data.forEach(product => {
           product_price = product.append(product_price)
           
       })
-      // console.log(product_price)
-
+     
     }
 
     dynamic_data(element){ 
-      // console.log("dynamic_data "+ element.product_quantity)
-      // console.log(element)
       return`
       <div class="row border-top border-bottom" id="div${element.product_unique_id}" >
         <div class="row main align-items-center">
@@ -103,26 +87,6 @@ export default class extends Controller {
       `
     }
 
-    
-
-    // product_quantity(data){
-    //   var product_unique_id = data.params.id
-    //   // console.log("Product Quantity")
-    //   quantity = this.quantityTarget.value 
-    
-    //   // console.log("Quantity "+ quantity)
-
-    //   // console.log("product_unique_id "+ product_unique_id)
-    //   fetch("/carts/product_qauntity/", {
-
-    //     method:"POST",
-    //     body: JSON.stringify({
-    //         "product_unique_id"    :   product_unique_id,
-    //         "quantity"   :   quantity
-    //     }),
-    //     headers: { "content-type": "application/json; charset=UTF-8" }
-    //   })
-    // }
 
  
 

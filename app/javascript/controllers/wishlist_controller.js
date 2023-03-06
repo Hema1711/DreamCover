@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 var load_count    =   0
 var search_text   =   ""
 // Connects to data-controller="wishlist"
-
+var quantity = 1
 export default class extends Controller {
 
   static targets  =   ["wishlistDetail","wishlist_is_empty"]
@@ -28,7 +28,6 @@ export default class extends Controller {
     .then(result=> result.json())
     .then(data=> {
       var detail                                =   ''
-      // console.log(data)
 
       if(data == null){
         console.log("Success")
@@ -36,13 +35,10 @@ export default class extends Controller {
       }
       else{
       data.forEach(element => {
-        // console.log(element)
         this.wishlist_is_emptyTarget.style.display =   "none"
              detail                                  =  detail + this.dynamic_data(element)
              
             });
-            // this.cartDetailTarget.insertAdjacentHTML("beforeend",detail)
-
             this.wishlistDetailTarget.innerHTML = detail
           }
 
@@ -61,7 +57,7 @@ export default class extends Controller {
 
               <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
                 <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                  <img src="${element.product_image1.url}" class="w-100" style="width:200px; height:200px"/>
+                  <img src="${element.product_image2.url}" class="w-100" style="width:200px; height:200px"/>
                   <a href="#!">
                     <div class="hover-overlay">
                       <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
@@ -95,9 +91,7 @@ export default class extends Controller {
                   <span>Casual<br /></span>
                 </div>
                 <p class="text-truncate mb-4 mb-md-0">
-                  There are many variations of passages of Lorem Ipsum available, but the
-                  majority have suffered alteration in some form, by injected humour, or
-                  randomised words which don't look even slightly believable.
+                ${element.product_description}
                 </p>
               </div>
 
@@ -109,7 +103,7 @@ export default class extends Controller {
                 <h6 class="text-success">Free shipping</h6>
                 <div class="d-flex flex-column mt-4">
                   <a class="btn-wish" href="/carts/delete_wishlist/${element.product_unique_id}" type="button">Delete</a>
-                  <a href="/carts/create_cart/${element.product_unique_id}" class="btn-wish" type="button">
+                  <a data-action="click->wishlist#add_to_cart" data-wishlist-id-param ="${element.product_unique_id}" class="btn-wish" type="button">
                     Add to Cart
                   </a>
                 </div>
@@ -122,6 +116,21 @@ export default class extends Controller {
     `
   }
 
+
+  add_to_cart(data){
+    console.log("add_to_cart")
+    var product_unique_id = data.params.id
+   
+    fetch("/carts/add_to_cart", {
+
+      method:"POST",
+      body: JSON.stringify({
+          "product_unique_id"    :   product_unique_id,
+          "quantity"   :   quantity
+      }),
+      headers: { "content-type": "application/json; charset=UTF-8" }
+    })
+  }
 
   // dynamic_data(element){ 
   //   console.log(element)

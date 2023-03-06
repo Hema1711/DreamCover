@@ -1,0 +1,98 @@
+.parent-container[
+    data-controller='user'
+    ]
+  = form_with scope: @new_user, method: :post, url: create_user_path  do |form|
+    ul
+        -unless @new_user.nil?
+          .alert.alert-danger[
+            data-user-target="notice_message"
+            style="display:none"
+            ]= @login_error 
+        
+
+    section.vh-100.gradient-custom 
+      .container.py-3.h-100
+        .row.d-flex.justify-content-center.align-items-center.h-100
+          .col-12.col-md-8.col-lg-6.col-xl-5
+            .card.bg-dark.text-white style=("border-radius: 1rem;") 
+              .card-body.p-5.text-center
+                .mb-md-4.mt-md-2
+                  h2.fw-bold.mb-2.text-uppercase Sign Up Page
+                  p.text-white-40.mb-4.mt-3 Please enter your email and password!
+                  -unless @user.nil?
+                    .alert.alert-primary.text-uppercase
+                      | Welcome  
+                      = (@user['nickname'])
+                  .form-outline.form-white.mb-4
+                    label.lable-class for="typeEmailX"  Email 
+                    = form.email_field :email, type:"email", placeholder:"enter email id", id:"typeEmailX" , data: {"vendorform-target" => "login_email_id" , action: "focusout->vendorform#login_email_id_validation" }
+                    label.err[
+                      data-user-target='login_email_id_error'
+                      style="display:none"
+                      ] Email ID Required*
+                  .form-outline.form-white.mb-4
+                    label.lable-class for="pword"  Password 
+                    = form.password_field :password_digest, type:"password", placeholder:"enter password", id:"pword", data: {"vendorform-target" => "login_password" , action: "focusout->vendorform#login_password_validation" }
+                    label.err[
+                      data-user-target='login_password_error'
+                      style="display:none"
+                      ] password Required*
+                  .form-outline.form-white.mb-4
+                    label.lable-class for="pword"  Confirm Password
+                    = form.password_field :password_digest, type:"password", placeholder:"confirm password", id:"r-pword", data: {"vendorform-target" => "r_login_password" , action: "focusout->vendorform#login_r_password_validation" }
+                    label.err[
+                      data-user-target='login_r_password_error'
+                      style="display:none"
+                      ] re-enter the password*
+                  .form-outline.form-white.mb-4
+                    = form.submit  class:'btn btn-outline-light btn-lg login-button' , id:"btn" , value:"Sign Up" , data: {action: 'click-> vendorform#login_validation'}
+                      label.login-success-lable[
+                          data-user-target="login_error"
+                              ]
+                div
+                  p.mb-0
+                    h6 Already have an account, please login here ⬇
+                    a.text-white-50.fw-bold href="/login"  Sign In 
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/ - content_for :legacy_javascripts do
+/   javascript:
+/       $(document).ready(function(){
+/                   console.log("hello")
+/         $("#btn").click(function(event){
+/           if(document.getElementById(email).value==""){
+/               event.preventDefault();
+/               $(err).show();
+
+/           }
+/           if(document.getElementById(pword).value==""){
+/               event.preventDefault();
+/               $(err).show();
+         
+/         });
+/       });
+

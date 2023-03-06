@@ -9,7 +9,17 @@ module ProductInformation
 			
 		end
 
-		def self.new_arrivals(load_count,search_text="")
+		def self.products_for_owner(search_text, user_id)
+			# byebug
+			informations=Product.where(is_active: true).where(user_unique_id: user_id ).where("product_name LIKE ?" ,"#{search_text}%")	
+			total_count = Product.where(is_active: true).where(user_unique_id: user_id ).where("product_name LIKE ?" ,"#{search_text}%").count 
+			return informations,total_count 
+			
+		end
+
+
+
+		def self.new_arrivals(load_count,search_text="" )
 			# byebug
 			if (load_count == 0)
 				informations = Product.where(is_active: true).where("product_name LIKE ?","#{search_text}%").offset(load_count).limit(6)
@@ -45,19 +55,12 @@ module ProductInformation
 			product.update(params)
 		end
 
-		# def self.create_product(params)
-		# 	# byebug
-		# 	product_unique_id = SecureRandom.alphanumeric(6)
-		# 	product = Product.create(product_unique_id: product_unique_id)
-		# 	@product = product.update(params)
-			
-		# end
+	
 
-		def self.create_product(params)
+		def self.create_product(params,user_id)
 			# byebug
 			product_unique_id = SecureRandom.alphanumeric(6)
-			# product = Product.create()
-			product = Product.create(product_unique_id: product_unique_id) 
+			product = Product.create(product_unique_id: product_unique_id,user_unique_id:user_id) 
 			@product = product.update(params)
 		end
 

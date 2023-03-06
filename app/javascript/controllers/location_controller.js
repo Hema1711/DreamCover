@@ -6,7 +6,6 @@ export default class extends Controller {
     console.log("Location JS")
     // detail = this.get_user_location()
     // this.currency_converter(detail)
-    
   }
 
   get_user_location(){

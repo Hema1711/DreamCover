@@ -1,55 +1,37 @@
 
-    <div class="container mt-5 mb-5">
-
+    <div class="container mt-5 mb-5" data-controller="order invoce">
         <div class="row d-flex justify-content-center">
-
             <div class="col-md-8">
-
                 <div class="card-order">
-
-
                         <div class="text-left logo p-2 px-5">
-
                             <img src="https://i.imgur.com/2zDU056.png" width="50">
-                            
-
                         </div>
-
                         <div class="invoice p-5">
-
                             <h5>Your order Confirmed!</h5>
-                            <%= link_to "Download Invoice", download_path, class: "button" %>
-
-                            <span class="font-weight-bold d-block mt-4">Hello, Chris</span>
+                            <!--<button value="Download Invoice" data-action= "click->order#invoice_pdf"  class= "button"  target= "_blank">Download Invoice</button>-->
+                            <%= link_to "Download Invoice 1", invoice_download_path, class: "button", target: "_blank" %>
+                            <span class="font-weight-bold d-block mt-4">Hello,  <h3><%=@user_info.first_name%>  <%= @user_info.last_name %></h3></span>
                             <span>You order has been confirmed and will be shipped in next two days!</span>
-
                             <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
-
                                 <table class="table table-borderless">
-                                    
                                     <tbody>
                                         <tr>
                                             <td>
                                                 <div class="py-2">
-
                                                     <span class="d-block text-muted">Order Date</span>
-                                                <span>12 Jan,2018</span>
-                                                    
+                                                <span><%=@time.strftime("%d %B, %Y")%></span>
                                                 </div>
                                             </td>
 
                                             <td>
                                                 <div class="py-2">
-
                                                     <span class="d-block text-muted">Order No</span>
-                                                <span>MT12332345</span>
+                                                <span><%=session[:order_id]%></span>
                                                     
                                                 </div>
                                             </td>
-
                                             <td>
                                                 <div class="py-2">
-
                                                     <span class="d-block text-muted">Payment</span>
                                                 <span><img src="https://img.icons8.com/color/48/000000/mastercard.png" width="20" /></span>
                                                     
@@ -58,211 +40,167 @@
 
                                             <td>
                                                 <div class="py-2">
-
                                                     <span class="d-block text-muted">Shiping Address</span>
-                                                <span>414 Advert Avenue, NY,USA</span>
-                                                    
+                                                <span><%=@user_info.city%> , <%=@user_info.state%>, <%=@user_info.country%> </span>
                                                 </div>
                                             </td>
                                         </tr>
                                     </tbody>
 
                                 </table>
-
-
-
-
-                                
                             </div>
-
-
-
-
                                 <div class="product border-bottom table-responsive">
-
                                     <table class="table table-borderless">
-
-                                    <tbody>
+                                    <thead>
                                         <tr>
-                                            <td width="20%">
-                                            
-                                            <img src="/assets/bed-sheet-2.jpg" width="90">
-
-                                        </td>
-                                    
-                                        <td width="60%">
-                                            <span class="font-weight-bold">Men's Sports cap</span>
-                                            <div class="product-qty">
-                                                <span class="d-block">Quantity:1</span>
-                                                <span>Color:Dark</span>
-                                                
-                                            </div>
-                                        </td>
-                                        <td width="20%">
-                                            <div class="text-right">
-                                                <span class="font-weight-bold">$67.50</span>
-                                            </div>
-                                        </td>
+                                            <th>Image</th>
+                                            <th>Item</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Qty</th>
+                                            <th>Total</th>
                                         </tr>
-
-
-                                        <tr>
-                                            <td width="20%">
-                                            
-                                            <img src="/assets/bed-sheet-3.jpg" width="70">
-
-                                        </td>
-                                    
-                                        <td width="60%">
-                                            <span class="font-weight-bold">Men's Collar T-shirt</span>
-                                            <div class="product-qty">
-                                                <span class="d-block">Quantity:1</span>
-                                                <span>Color:Orange</span>
-                                                
-                                            </div>
-                                        </td>
-                                        <td width="20%">
-                                            <div class="text-right">
-                                                <span class="font-weight-bold">$77.50</span>
-                                            </div>
-                                        </td>
-                                        </tr>
-                                    </tbody> 
+                                    </thead>
+                                    <tbody data-order-target="orderDetail">
                                         
+                                    </tbody> 
                                     </table>
-                                    
-
-
                                 </div>
-
-
-
                                 <div class="row d-flex justify-content-end">
-
                                     <div class="col-md-5">
-
-                                        <table class="table table-borderless">
-
-                                            <tbody class="totals">
-
-                                                <tr>
-                                                    <td>
-                                                        <div class="text-left">
-
-                                                            <span class="text-muted">Subtotal</span>
-                                                            
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-right">
-                                                            <span>$168.50</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-
-                                                 <tr>
-                                                    <td>
-                                                        <div class="text-left">
-
-                                                            <span class="text-muted">Shipping Fee</span>
-                                                            
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-right">
-                                                            <span>$22</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-
-                                                 <tr>
-                                                    <td>
-                                                        <div class="text-left">
-
-                                                            <span class="text-muted">Tax Fee</span>
-                                                            
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-right">
-                                                            <span>$7.65</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-
-                                                 <tr>
-                                                    <td>
-                                                        <div class="text-left">
-
-                                                            <span class="text-muted">Discount</span>
-                                                            
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-right">
-                                                            <span class="text-success">$168.50</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-
-
-                                                 <tr class="border-top border-bottom">
-                                                    <td>
-                                                        <div class="text-left">
-
-                                                            <span class="font-weight-bold">Subtotal</span>
-                                                            
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="text-right">
-                                                            <span class="font-weight-bold">$238.50</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                
-                                            </tbody>
+                                        <table class="table table-borderless" data-order-target="orderTotal">
                                             
                                         </table>
-                                        
                                     </div>
-                                    
-
-
                                 </div>
-
-
                                 <p>We will be sending shipping confirmation email when the item shipped successfully!</p>
                                 <p class="font-weight-bold mb-0">Thanks for shopping with us!</p>
-                                <span>Nike Team</span>
-
-
-
-                            
-
+                                <span>Dream Cover Team</span>
                         </div>
 
 
                         <div class="d-flex justify-content-between footer p-3">
-
                             <span>Need Help? visit our <a href="#"> help center</a></span>
-                             <span>12 June, 2020</span>
-                            
                         </div>
 
-
-
-
-            
         </div>
-                
             </div>
-            
         </div>
+        <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 padding" data-controller="order">
+    <div class="card">
+        <div class="card-header p-4">
+          <img class="dream-logo-footer" src="/assets/logo_1.png" alt=""> 
         
+        <div class="float-right"> <h3 class="mb-0">Invoice No : </h3> <span> <%= session[:current_invoice_id]  %></span> </div>
+        <div class="float-left"> <h3 class="mb-0">Date: </h3>  <%=@time.strftime("%d %B, %Y")%></div>
+        </div>
+        <div class="card-body">
+        <div class="row mb-4">
+        <div class="col-sm-6">
+        <h3 class="text-dark mb-1 ">From:</h3>
+        <div class="mb-3">Dream Cover</div>
+        <div>29, Singla Street</div>
+        <div>Sikeston,New Delhi 110034</div>
+        <div>Email: contact@bbbootstrap.com</div>
+        <div>Phone: +91 9897 989 989</div>
+        </div>
+        <div class="col-sm-6 ">
+        <h3 class="text-dark mb-1">To:</h3>
+        <div class="mb-3"><%=@user_info.first_name%> <%=@user_info.last_name%></div>
+        <div><%=@user_info.city%></div>
+        <div> <%=@user_info.state%>, <%=@user_info.country%> </div>
+        <div>Email: <%=@user_info.email%></div>
+        <div>Phone:<%=@user_info.phone_number%></div>
+        </div>
+        </div>
+        <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
+            <table class="table table-borderless">
+                 <thead>
+                    <tr>
+                        <th>Invoice Date</th>
+                        <th>Invoice No</th>
+                        <th>Shiping Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-top:2px solid #E1F1D5;">    
+                        <td><%=@time.strftime("%d %B ")%></td>
+                        <td><%=session[:current_invoice_id]%></td>
+                        <td><%=@user_info.city%> , <%=@user_info.state%>, <%=@user_info.country%></td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <div class="table-responsive-sm" >
+         &nbsp; 
+            <table class="table table-striped" >
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+            
+
+                 <tbody>
+                    <% @cart.each do |cart| %>
+                    <tr style="border-top:2px solid #E1F1D5;">
+                    <td><%= cart.product_name %></td>
+                    <td><%= cart.product_description %> </td>
+                    <td>$<%= cart.product_price %></td>
+                    <td><%= cart.product_quantity %> </td>
+                    <td>$<%= cart.product_price  * cart.product_quantity %>  </td>
+                    </tr> 
+                    <% end %>
+                </tbody> 
+
+            </table>
+        </div>
+            <div class="row">
+            <div class="col-lg-4 col-sm-5">
+        </div>
+
+        <div class="row d-flex justify-content-end">
+            <div>
+                <table class="table table-borderless">
+
+                    <tbody data-order-target="invoiceTotal">
+                        <tr>
+                        <td class="left"><strong class="text-dark">Subtotal</strong></td>
+                        <td class="right"><%= @cart_total_price %></td>
+                        </tr>
+                        <tr>
+                        <td class="left"><strong class="text-dark">Discount (20%)</strong></td>
+                        <td class="right">$<%= @cart_total_price * 20/100 %></td>
+                        </tr>
+                        <tr>
+                        <td class="left"><strong class="text-dark">VAT (10%)</strong></td>
+                        <td class="right">$<%= @cart_total_price * 10/100 %></td>
+                        </tr>
+                        <tr>
+                        <td class="left"><strong class="text-dark">Total</strong></td>
+                        <td class="right">
+                        <strong class="text-dark">$<%= @cart_total_price - @cart_total_price * 20/100  - @cart_total_price * 10/100  %> </strong>
+                    </td>
+                    </tr>
+                    </tbody> 
+                </table>
+            </div>
+        </div>
+        </div>
+        </div>
+      
     </div>
+</div>
+
+    </div>
+
+
+
+    
 
  

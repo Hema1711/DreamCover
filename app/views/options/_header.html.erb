@@ -1,0 +1,108 @@
+ 
+<% if session[:current_user_role] == "admin" %>
+    <!-- header 1 section starts -->
+    <header class="header" data-controller="hello" >
+    <% if session[:current_user_id].present? %>
+        <a href="/landing_page" class=" header-title index-anch"> 
+            <img class="dream-logo-header" src="/assets/logo_1.png" alt="">
+        </a>
+
+        <nav class="navbar-header">
+            <a class="index-anch" href="/landing_page">home</a>
+            <a class="index-anch" href="/product_owner_index">products</a>
+            <a class="index-anch" href="/carts/order_log_index">Order Logs</a>
+        </nav>
+
+      <div class="icons" style="    margin-right: -255px;"> 
+                <div class="fas fa-bars" id="menu-btn">
+                </div> 
+             
+            
+              <% if session[:current_user_id]!= nil %>
+            
+            
+                 
+                 
+                <div class="cart_btn">
+                  <%= link_to "", new_product_path, :method => :get,  class:"fa fa-plus cart_btn-link header-btn" %> 
+                </div> 
+                <div class="user_btn">
+                  <%= link_to "", user_index_path, :method => :get,  class:"fas fa-user user_btn-link " %> 
+                </div> 
+              
+                 <div class="user_btn">
+                  <%= link_to "", logout_path,  :method => :get,  class:"fas fa-sign-out-alt user_btn-link", style: "text-decoration: none" %> 
+                </div> 
+                
+
+            <% else %>
+                <div class="search_btn">
+                  <%= link_to "", search_result_path, :method => :get,  class:"fas fa-search search_btn-link" %> 
+                </div>
+
+                <div class="cart_btn">
+                  <%= link_to "", cart_index_path, :method => :get,  class:"fas fa-shopping-cart cart_btn-link header-btn" %> 
+                </div> 
+              
+                <%= button_to 'Login', '/login',:method => :get,class: " btn-login-header form  user_btn-link"%>   
+
+            <% end %> 
+        </div> 
+    <% end %> 
+    </header>
+    <%else%>
+
+     <header class="header" data-controller="hello" >
+      <% if session[:current_user_id].present? %>
+        <a href="/landing_page" class=" header-title index-anch"> 
+            <img class="dream-logo-header" src="/assets/logo_1.png" alt="">
+        </a>
+
+        <nav class="navbar-header">
+            <a class="index-anch" href="/landing_page">home</a>
+            <a class="index-anch" href="/product/product_index">products</a>
+            <a class="index-anch" href="/carts/wishlist_index">Wishlist</a>
+            <a class="index-anch" href="/products/contact">Contact Us</a>
+            <a class="index-anch" href="/products/about_us">About Us</a>
+        </nav>
+
+      <div class="icons"> 
+                <div class="fas fa-bars" id="menu-btn">
+                </div> 
+            
+              <% if session[:current_user_id]!= nil %>
+          
+                <div class="search_btn">
+                  <%= link_to "", search_result_path, :method => :get,  class:"fas fa-search search_btn-link" %> 
+                </div>
+                <div class="cart_btn">
+                  <%= link_to "", cart_index_path, :method => :get,  class:"fas fa-shopping-cart cart_btn-link header-btn" %> 
+                </div> 
+                <div class="user_btn">
+                  <%= link_to "", user_index_path, :method => :get,  class:"fas fa-user user_btn-link" %> 
+                </div> 
+                <div class="user_btn">
+                  <%= link_to "", logout_path,  :method => :get,  class:"fas fa-sign-out-alt user_btn-link", style: "text-decoration: none" %> 
+                </div> 
+              
+                
+
+            <% else %>
+                <div class="search_btn">
+                  <%= link_to "", search_result_path, :method => :get,  class:"fas fa-search search_btn-link" %> 
+                </div>
+
+                <div class="cart_btn">
+                  <%= link_to "", cart_index_path, :method => :get,  class:"fas fa-shopping-cart cart_btn-link header-btn" %> 
+                </div> 
+              
+                <%= button_to 'Login', '/login',:method => :get,class: " btn-login-header form  user_btn-link"%>   
+
+            <% end %> 
+        </div> 
+
+        <% end %> 
+     
+    </header>
+     <%end%>
+    <!-- header 1 section ends -->

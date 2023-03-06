@@ -1,0 +1,39 @@
+   <!-- footer section starts  -->
+ <% if session[:current_user_id].present? %>
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <img class="dream-logo-footer" src="/assets/logo_1.png" alt=""> 
+            <div class="share">
+                <a href="https://en-gb.facebook.com/login/?privacy_mutation_token=eyJ0eXBlIjowLCJjcmVhdGlvbl90aW1lIjoxNjc1MzM2NTQ5LCJjYWxsc2l0ZV9pZCI6MjY5NTQ4NDUzMDcyMDk1MX0%3D" class="fab fa-facebook-f index-anch"></a>
+                <a href="https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D" class="fab fa-twitter index-anch"></a>
+                <a href="https://www.instagram.com/accounts/login/?source=auth_switcher" class="fab fa-instagram index-anch"></a>
+                <a href="https://in.linkedin.com/" class="fab fa-linkedin index-anch"></a>
+            </div>
+        </div>
+
+        <div class="box">
+            <h3>contact info</h3>
+            <a href="#" class="index-anch links"> <i class="fas fa-phone"></i> +123-456-7890 </a>
+            <a href="#" class="index-anch links"> <i class="fas fa-phone"></i> +111-222-3333 </a>
+            <a href="#" class="index-anch links"> <i class="fas fa-envelope"></i> dreamcover@gmail.com </a>
+            <a href="#" class="index-anch links"> <i class="fas fa-map-marker-alt"></i> mumbai, india - 400104 </a>
+        </div>
+
+        <div class="box">
+            <h3>quick links</h3>
+            <a href="/landing_page" class="links index-anch"> <i class="fas fa-arrow-right"></i> home </a>
+            <a href="/product/product_index" class="links index-anch"> <i class="fas fa-arrow-right"></i> products </a>
+            <a href="/products/about_us" class="links index-anch"> <i class="fas fa-arrow-right"></i> About </a>
+        </div>
+
+
+    </div>
+
+    <div class="credit"> <span> <p>Copyright &copy; 2022 <a rel="nofollow" class="index-anch" href="/landing_page">Dream Cover</a>| all rights reserved</p> </span>  </div>
+
+</section>
+<% end %> 
+<!-- footer section ends -->

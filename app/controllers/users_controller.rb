@@ -1,26 +1,47 @@
 class UsersController < ApplicationController
 	
     skip_before_action :verify_authenticity_token
-	# include Secured
-	# before_action :admin, only: [:show, :update, :destroy, :edit]
 	require 'securerandom'
+    before_action :user_require, only:[:index,:new,:edit,:show]
+    before_action :verify_authorization, only:[:new,:create,:index,:delete]
 
-	
-	# def login 
-    #     byebug
-    #     @user = session[:userinfo]
-    #     if session[:current_user_id].present?
-    #         if session[:current_user_role]
-    #             redirect_to index_path, notice: "Admin is not logged out yet"
-    #         else
-    #             redirect_to show_path, notice: "User is not logged out yet"
-    #         end
-    #     end
-    # end
+
+	def create_user
+		# byebug
+		unique_id = SecureRandom.alphanumeric(20)
+	 	cart_unique_id =  SecureRandom.alphanumeric(8)
+		@user_info = ProductInformation::UserService.create_user(params["user"]["email"], params["user"]["password_digest"],  unique_id, cart_unique_id)
+		if @user_info.errors.full_messages==[]
+            session[:current_user_id] = @user_info.unique_id
+            redirect_to user_index_path, notice: "New User Created Successfully"
+        else
+            render :login_index, status: :unprocessable_entity
+        end
+	end
+
+
+	def update_password
+		byebug
+		@user_login =  ProductInformation::UserService.update_user_password(params[:email],params[:password_digest])
+        
+        if @user_login.nil? 
+            @user_login =  "email-id Doesn't Exists"
+            render :login_index, status: :unprocessable_entity
+
+        elsif @user_login == false 
+            @user_login = "Email id is exists, but Incorrect password"
+            render :login_index, status: :unprocessable_entity
+
+        else
+            session[:current_user_id] = @user_login.unique_id
+            session[:current_user_role] = @user_login.roles
+			redirect_to index_path
+        end
+	end
 
 	def verify_user
-		byebug
-        @user_login =  ProductInformation::UserService.user_login(params[:email_id],params[:password])
+		# byebug
+        @user_login =  ProductInformation::UserService.user_login(params[:email],params[:password_digest])
         
         if @user_login.nil? 
             @user_login =  "email-id Doesn't Exists"
@@ -31,60 +52,41 @@ class UsersController < ApplicationController
             render :login, status: :unprocessable_entity
 
         else
-            # byebug
-            session[:current_user_id] = @user_login.id
-            session[:current_user_role] = @user_login.is_admin
-            if @user_login.is_admin
-                redirect_to index_path, notice: "Admin Login Success"
-            else
-                redirect_to show_path, notice: "User Login Success"
-            end
-            
+            session[:current_user_id] = @user_login.unique_id
+            session[:current_user_role] = @user_login.roles
+			redirect_to index_path
         end
 
     end 
 
+
 	def logout
 		# byebug
-		reset_session
-		redirect_to login_index
+		session.clear
+		redirect_to login_index_path
 	end
 	
-
-	# def create_user
-	# 	byebug
-	# 	$session_user = params[:email_id]
-	# 	unique_id = SecureRandom.alphanumeric(20)
-	# 	cart_unique_id =  SecureRandom.alphanumeric(8)
-	# 	@user_info= ProductInformation::UserService.create_user(unique_id,cart_unique_id,params[:email_id],params[:phone_number])
-	# 	redirect_to user_index_path
-	# 	# redirect_to '/users/get_user'
-
-	# end
-
-	# def verify_user
-	# 	byebug
-	# 	email_id = params[:email_id]
-	# 	password = params[:password]
-	# 	if email_id.present?
-	# 		redirect_to product_index_path
-	# 	else
-	# 		render :login_index, status: :unprocessable_entity
-	# 	end
-
-	# end
 
 
 
 
 	def user_index
 		# byebug
-		email_id = $session_user
-			@user_info = ProductInformation::UserService.get_user(email_id)
+		@user_info = ProductInformation::UserService.get_user(session[:current_user_id])
+		# @countries =CS.countries.find_by(@user_info.country)
+		# @country= @user_info.country.invert
+		# @states = CS.states(:us).invert
+		# @cities =CS.cities(:ak, :us)
 	end
 		
 	def login_index
+		# byebug
+		# redirect_to login_index_path
 	end
+
+	def new_user 
+        @new_user = ProductInformation::UserService.new()
+    end
 
 
 	def edit_user
@@ -124,7 +126,7 @@ class UsersController < ApplicationController
 
 	private
 	def user_params
-		params.require(:user_details).permit(:first_name, :last_name, :email, :phone_number, :country, :city, :state, :file_extension, :cart_unique_id)
+		params.require(:user).permit(:first_name, :last_name, :email, :phone_number, :country, :city, :state, :file_extension, :cart_unique_id, :password_digest)
 	end
 
 end

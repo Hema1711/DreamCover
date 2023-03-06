@@ -1,19 +1,12 @@
 <div data-controller = "product" >
 <!-- --------------------------------arrival section starts ------------------------------- -->
 
-    <section class="arrival" id="arrival" >
+    <!--<section class="arrival" id="arrival" >
 
     <h1 class="heading"> <span>new arrivals</span> 
-     <%= button_to "New Product", new_product_path, :method => :get,  class:"btn-index index-anch" %> 
-
-
-    <div class="box-container" data-product-target="newArrival"  >
-    
-    
-    
-    </div>
-    
-    </section>
+    <div class="box-container" data-product-target="newArrival"  ></div>
+  
+    </section>-->
     
     
     <!-- -----------------------------arrival section ends------------------------------------ -->
@@ -22,7 +15,7 @@
     
     <section class="products-feature" id="featured">
     
-     <h1 class="heading"> <span> featured product </span> </h1>
+     <h1 class="heading"> <span> New Arrival </span> </h1>
     
         <div class="products-feature-row" data-product-target="featuredProduct">
             
@@ -35,17 +28,17 @@
     
     <!-- --------------------------------------gallery section starts----------------------------  -->
     
-    <section class="gallery" id="gallery" >
-    
-    <h1 class="heading"> <span> product gallery </span> </h1>
-    
-    
-    <div class="image-container" data-target="product.productGallery">
-    
-    
+   
+
+    <section class="featured" id="featured" >
+
+    <h1 class="heading"> <span> products gallery </span> </h1>
+
+    <div class="row"  data-product-target="productGallery">
+      
     </div>
-    
-    </section>
+
+    </section>  
     
     <!-- ------------------------------------gallery section ends-------------------------- -->
     
@@ -56,6 +49,8 @@
     <!-- -----------------------------------------deal section ends------------------------------------ -->
 
 </div>
+
+
 
 
    

@@ -1,0 +1,50 @@
+.parent-container[
+  data-controller='user'
+  ]
+ =form_with scope: @user_info, method: :post, url: verify_user_path  do |form|
+  ul
+    -unless @user_login.nil?
+      .alert.alert-danger.mt-4[
+        data-user-target="notice_message"
+        ]=@user_login
+
+      -flash.each do |type,msg|
+        .alert.alert-info.mt-4[
+          data-user-target="notice_message"
+          ]= msg
+
+  section.gradient-custom 
+    .container.py-5.h-100
+      .row.d-flex.justify-content-center.align-items-center.h-100
+        .col-12.col-md-8.col-lg-6.col-xl-5
+          .card.bg-dark.text-white style=("border-radius: 1rem;") 
+            .card-body.text-center
+              .mb-md-5.mt-md-4
+               .form-outline.form-white.mb-4
+                img src="/assets/logo_1.png" style="width: 90px; height: 86px; border-radius: 171px;"
+                h2.fw-bold.mb-2.text-uppercase Login Page
+                p.text-white-40.mb-4.mt-3 Please enter your login and password!
+                .form-outline.form-white.mb-4
+                  label.lable-class for="typeEmailX"  Email 
+                  = form.email_field :email, class:"",type:"email", placeholder:"enter email id", id:"typeEmailX" , data: {"vendorform-target" => "login_email_id" , action: "focusout->vendorform#login_email_id_validation" }
+                  label.err[
+                    data-user-target='login_email_id_error'
+                    style="display:none"
+                    ] Email ID Required*
+                .form-outline.form-white.mb-4 
+                  label.lable-class for="pword"  Password  
+                  = form.password_field :password_digest, class:"",type:"password", placeholder:"enter password", id:"pword", data: {"vendorform-target" => "login_password" , action: "focusout->vendorform#login_password_validation" }
+                  label.err[
+                    data-user-target='login_password_error'
+                    style="display:none"
+                    ] password Required*
+                .form-outline.form-white.mb-4  
+                  = form.submit  class:'btn btn-outline-light btn-lg login-button' , id:"btn" , value:"Sign In" , data: {action: 'click-> vendorform#login_validation'}
+                p.mb-0
+                  a.text-white-50.fw-bold href="/forget_password"  Forget password ?
+                p.mb-0
+                  | Don't have an account?
+                  a.text-white-50.fw-bold href="/new_user"  Sign Up
+          
+                
+              

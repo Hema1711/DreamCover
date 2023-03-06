@@ -8,7 +8,17 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+  <style>
+    @font-face {
+        font-family: "Open Sans";
+        src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2");
+    }
 
+    body {
+        font-family: "Open Sans";
+    }
+
+  </style>
 
 
     <!-- Font Awesome -->
@@ -27,160 +37,11 @@
   </head>
 
   <body> 
- 
-  <header class="header" data-controller="hello" >
-
-    <a href="/landing_page" class=" header-title index-anch"> 
-        <img class="dream-logo-header" src="/assets/dream_logo.png" alt="">
-    </a>
-
-    <nav class="navbar-header">
-        <a class="index-anch" href="/landing_page">home</a>
-        <a class="index-anch" href="/product/product_index">products</a>
-         <a class="index-anch" href="/carts/wishlist_index">Wishlist</a>
-        <a class="index-anch" href="/products/contact">Contact Us</a>
-        <a class="index-anch" href="#blogs">About Us</a>
-       
-    </nav>
-
-   <div class="icons"> 
-            <div class="fas fa-bars" id="menu-btn">
-            </div> 
-        
-           <!---<% if $session_user != "" %>-->
-      
-            <div class="search_btn">
-              <%= link_to "", search_result_path, :method => :get,  class:"fas fa-search search_btn-link" %> 
-            </div>
-            <div class="cart_btn">
-              <%= link_to "", cart_index_path, :method => :get,  class:"fas fa-shopping-cart cart_btn-link header-btn" %> 
-            </div> 
-            <div class="user_btn">
-              <%= link_to "", user_index_path, :method => :get,  class:"fas fa-user user_btn-link" %> 
-            </div> 
-              <div class="user_btn">
-              <%= link_to "", login_index_path, :method => :get,  class:"fas fa-user-circle  user_btn-link" %> 
-            </div> 
-
-            <%
-=begin%>
- if (session[:user_name]) == "Admin"{
-
-            } 
-<%
-=end%>
-  
-            <!---<%= button_to 'Logout', '/auth/logout',class: " btn-logout-header form  user_btn-link", method: :get, data:{turbo: "false"}%>   
-
-
-            <%= button_to 'Logout', '/users/logout',class: " btn-logout-header form  user_btn-link", method: :get, data:{turbo: "false"}%>     -->  
-            
-
-        <!--- <% else %>
-            <div class="search_btn">
-              <%= link_to "", search_result_path, :method => :get,  class:"fas fa-search search_btn-link" %> 
-            </div>
-
-             <div class="cart_btn">
-              <%= link_to "", cart_index_path, :method => :get,  class:"fas fa-shopping-cart cart_btn-link header-btn" %> 
-            </div> 
-           
-            <%= button_to 'Login', '/auth/auth0',class: " btn-login-header form  user_btn-link", method: :post, data:{turbo: "false"}%>  
-
-            
-            <%= button_to 'Login', '/users/user_login',class: " btn-login-header form  user_btn-link"%> 
-
-        <% end %> -->
-    </div> 
- 
- 
- <div class="shopping-cart" data-hello-target="cart" id="cart-bar">
-        <div class="box">
-            <i class="fas fa-trash"></i>
-            <img src="/assets/bed-sheet-2.jpg" alt="">
-            <div class="content">
-                <h3>Bed Sheets</h3>
-                <span class="price">$4.99/-</span>
-                <span class="quantity">qty : 1</span>
-            </div>
-        </div>
-        <div class="box">
-            <i class="fas fa-trash"></i>
-            <img src="/assets/bed-sheet-2.jpg" alt="">
-            <div class="content">
-                <h3>Bed Sheets</h3>
-                <span class="price">$4.99/-</span>
-                <span class="quusers/get_userantity">qty : 1</span>
-            </div>
-        </div>
-        <div class="box">
-            <i class="fas fa-trash"></i>
-            <img src="/assets/bed-sheet-2.jpg" alt="">
-            <div class="content">
-                <h3>Bed Sheets</h3>
-                <span class="price">$4.99/-</span>
-                <span class="quantity">qty : 1</span>
-            </div>
-        </div>
-        <div class="total"> total : $19.69/- </div>
-        <a href="#" class="btn">checkout</a>
-    </div> 
-     
-
-
-</header>
-
-<!-- header section ends -->
-
+    <%= render 'options/header' %>
 
     <%= yield %>
 
-
-    <!-- footer section starts  -->
-
-<section class="footer">
-
-    <div class="box-container">
-
-        <div class="box">
-            <img class="dream-logo-footer" src="/assets/dream_logo.png" alt=""> 
-            <div class="share">
-                <a href="#" class="fab fa-facebook-f index-anch"></a>
-                <a href="#" class="fab fa-twitter index-anch"></a>
-                <a href="#" class="fab fa-instagram index-anch"></a>
-                <a href="#" class="fab fa-linkedin index-anch"></a>
-            </div>
-        </div>
-
-        <div class="box">
-            <h3>contact info</h3>
-            <a href="#" class="index-anch links"> <i class="fas fa-phone"></i> +123-456-7890 </a>
-            <a href="#" class="index-anch links"> <i class="fas fa-phone"></i> +111-222-3333 </a>
-            <a href="#" class="index-anch links"> <i class="fas fa-envelope"></i> dreamcover@gmail.com </a>
-            <a href="#" class="index-anch links"> <i class="fas fa-map-marker-alt"></i> mumbai, india - 400104 </a>
-        </div>
-
-        <div class="box">
-            <h3>quick links</h3>
-            <a href="/landing_page" class="links index-anch"> <i class="fas fa-arrow-right"></i> home </a>
-            <a href="/product/product_index" class="links index-anch"> <i class="fas fa-arrow-right"></i> products </a>
-            <a href="#" class="links index-anch"> <i class="fas fa-arrow-right"></i> categories </a>
-            <a href="#" class="links index-anch"> <i class="fas fa-arrow-right"></i> review </a>
-            <a href="#" class="links index-anch"> <i class="fas fa-arrow-right"></i> blogs </a>
-        </div>
-
-        <div class="box">
-            <h3>Payment Modes</h3>
-            <img src="/assets/payment.png" class="payment-img" alt="">
-        </div>
-
-    </div>
-
-    <div class="credit"> <span> <p>Copyright &copy; 2022 <a rel="nofollow" href="#">Dream Cover</a></p> </span> | all rights reserved </div>
-
-</section>
-
-<!-- footer section ends -->
+    <%= render 'options/footer' %>
   
   </body>
 

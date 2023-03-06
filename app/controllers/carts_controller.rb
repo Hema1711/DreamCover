@@ -1,49 +1,23 @@
 class CartsController < ApplicationController
-    # before_action :authenticate_admin_user!
-    
-    before_action :admin, only: [:show, :update, :destroy, :edit]
-    skip_before_action :verify_authenticity_token
 
-    
-    def cart_index
-
-    end
-
-    # def cart_details
-    #     # byebug
-    #     @cart_array = []
-    #     @product_price = []
-    #     user_detail = ProductInformation::CartService.cart_index($session_user)
-    #     @cart = ProductInformation::CartService.cart_details(user_detail.unique_id)
-         
-    #     @cart.each do |x|
-    #         @id =  x.product_unique_id
-    #         @product = Product.find_by(product_unique_id: @id)   
-    #         @cart_price = @product_price.push(@product.product_price).sum
-    #         @cart_data = @cart_array.push(@product)
-    #         @cart_shipping = 10
-    #         @cart_tax = 20
-    #         @cart_total = @cart_price + @cart_tax + @cart_shipping
-
-    #     end
-    #     render json: [@cart_data,@cart_price,@cart_tax, @cart_total ,@cart_shipping]
-    # end
+	skip_before_action :verify_authenticity_token
+    before_action :user_require, only:[:index,:new,:edit,:show]
+    before_action :verify_authorization, only:[:new,:create,:index,:delete]
 
     def product_qauntity
         # byebug
-        @quantity = ProductInformation::CartService.product_qauntity(params[:product_unique_id],params[:quantity])  
+        @quantity = ProductInformation::CartService.product_quantity(params[:product_unique_id],params[:quantity])  
         redirect_to cart_index_path
     end  
     
-
+   
     def cart_details
+        # byebug
         @product_price = []
-        user_detail = ProductInformation::CartService.cart_index($session_user)
-        @cart = ProductInformation::CartService.cart_details(user_detail.unique_id)  
+        @cart = ProductInformation::CartService.cart_details(session[:current_user_id])  
+        # @cart_detail = @cart[0].cart_unique_id
         @cart.each do |x|
-          
             @cart_total_price = @product_price.push(x.product_price* x.product_quantity).sum
-          
         end
         render json: [@cart, @cart_total_price ]
     end
@@ -52,12 +26,11 @@ class CartsController < ApplicationController
    
     def add_to_cart
         # byebug
-        product_detail = ProductInformation::CartService.add_to_cart(params[:product_unique_id], params[:quantity],$session_user)
+        product_detail = ProductInformation::CartService.add_to_cart(params[:product_unique_id], params[:quantity],session[:current_user_id])
         redirect_to product_index_path
     end
 
 
-   
 
     def delete_cart
         # byebug
@@ -66,18 +39,13 @@ class CartsController < ApplicationController
     end
  
 
-    # --------------------------------------------------------------------------------------------------
-
-    def wishlist_index
-
-    end
+    # --------------------------------Wishlist------------------------------------------------------------------
 
 
     def wishlist_details
         # byebug
         @wishlist_array = []
-        user_detail = ProductInformation::CartService.cart_index($session_user)
-        @wishlist = ProductInformation::CartService.wishlist_details(user_detail.unique_id)
+        @wishlist = ProductInformation::CartService.wishlist_details(session[:current_user_id]) 
          
         @wishlist.each do |x|
             @id =  x.product_unique_id
@@ -87,17 +55,10 @@ class CartsController < ApplicationController
         render json: @wishlist_data  
     end
 
-    # def add_to_wishlist
-    #     # byebug
-    #     product_detail = ProductInformation::ProductService.single_product(params[:product_unique_id])
-    #     user_detail = ProductInformation::CartService.cart_index($session_user)
-    #     @cart = ProductInformation::CartService.add_to_wishlist(product_detail.product_unique_id,user_detail.unique_id)
-    #     redirect_to product_index_path
-    # end
 
     def add_to_wishlist
         # byebug
-        product_detail = ProductInformation::CartService.add_to_wishlist(params[:product_unique_id], params[:quantity],$session_user)
+        product_detail = ProductInformation::CartService.add_to_wishlist(params[:product_unique_id], params[:quantity],session[:current_user_id] )
         redirect_to product_index_path
     end
 
@@ -120,7 +81,6 @@ class CartsController < ApplicationController
     def create_pay
         # byebug
         @amount = 500
-
         customer = Stripe::Customer.create(email: params[:stripeEmail], source: params[:stripeToken])
        charge = Stripe::PaymentIntent.create(:customer => customer.id, :amount => @amount, :description => 'Rails Stripe transaction',:currency => 'usd')
          rescue Stripe::CardError => e

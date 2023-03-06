@@ -24,36 +24,19 @@
                         <div class="product_description">
                             <nav>
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="#">Products</a></li>
-                                    <li class="breadcrumb-item active">Accessories</li>
+                                    <li class="breadcrumb-item"><a href="/landing_page">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="/product/product_index">Products</a></li>
                                 </ol>
                             </nav>
                             <div class="scrollbar scrollbar-primary">
                                 <div class="force-overflow">
                             <div class="product_name"><%= @single_product.product_name%></div>
-                            <div class="product-rating"><span class="badge badge-success"><i class="fa fa-star"></i> 4.5 Star</span> <span class="rating-review">35 Ratings & 45 Reviews</span></div>
-                            <div> <span class="product_price">₹<%= @single_product.product_price%></span> <strike class="product_discount"> <span style='color:black'>₹ <%= @single_product.product_price%><span> </strike> </div>
-                            <div> <span class="product_saved">You Saved:</span> <span style='color:black'>₹ <%= @single_product.product_price%><span> </div>
+                            
+                            <div> <span class="product_price">₹<%= @single_product.product_price* 28.98/100 %>&nbsp; </span> <strike class="product_discount"> <h4 style='color:black'>&nbsp;  ₹ <%= @single_product.product_price %><h4> </strike> </div>
                              <p style="font-size:small; text-align:justify"><%= @single_product.product_description%></p>
                             <hr class="singleline">
-                            <div> <span class="product_info">EMI starts at ₹ 2,000. No Cost EMI Available<span><br> <span class="product_info">Warranty: 6 months warranty<span><br> <span class="product_info">7 Days easy return policy<span><br> <span class="product_info">7 Days easy return policy<span><br> <span class="product_info">In Stock: 25 units sold this week<span> </div>
-                            <div>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="br-dashed">
-                                            <div class="row">
-                                                <div class="col-md-3 col-xs-3"> <img src="https://img.icons8.com/color/48/000000/price-tag.png"> </div>
-                                                <div class="col-md-9 col-xs-9">
-                                                    <div class="pr-info"> <span class="break-all">Get 5% instant discount + 10X rewards @ RENTOPC</span> </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-7"> </div>
-                                </div>
-                               
-                            </div>
+                            <div> <span class="product_info">EMI starts at ₹ 2,000. No Cost EMI Available<span><br> <span class="product_info">Warranty: 6 months warranty<span><br> <span class="product_info">7 Days easy return policy<span><br> </div>
+                         
                             <hr class="singleline">
                             <div class="order_info d-flex flex-row">
                                 <form action="#">

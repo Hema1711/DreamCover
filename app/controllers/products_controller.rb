@@ -1,13 +1,7 @@
 class ProductsController < ApplicationController
 	
+	skip_before_action :verify_authenticity_token
 	
-
-    skip_before_action :verify_authenticity_token
-	# before_action :admin, only: [:show, :update, :destroy, :edit]
-	# include Secured
-
-
-
 	def index
 		@data=Product.all
 	end
@@ -18,10 +12,13 @@ class ProductsController < ApplicationController
 		render json: [@informations,@total_count]
 	end
 
-	# def search_product
-	# 	@informations,@total_count = ProductInformation::ProductService.search_product(params[:search_text])
-	# 	render json: [@informations,@total_count]
-	# end
+	def products_for_owner
+		# byebug
+		user_id = session[:current_user_id]
+		@informations,@total_count = ProductInformation::ProductService.products_for_owner(params[:search_text],user_id)
+		render json: [@informations,@total_count]
+	end
+
 
 	def new_arrival
 		# byebug
@@ -30,6 +27,7 @@ class ProductsController < ApplicationController
 	end
 
 	def featured_product
+		# byebug
 		@featured_product = Product.last
 		render json: @featured_product
 	end
@@ -37,7 +35,6 @@ class ProductsController < ApplicationController
 	def single_product
 		# byebug
 		@single_product = ProductInformation::ProductService.single_product(params[:product_unique_id])
-		# render json: @single_product
 	end
 
 	def new_product
@@ -46,8 +43,9 @@ class ProductsController < ApplicationController
 
 	def create_product
 		# byebug
-		@product_info = ProductInformation::ProductService.create_product(parameters)
-		redirect_to product_index_path
+		user_id = session[:current_user_id]
+		@product_info = ProductInformation::ProductService.create_product(parameters,user_id)
+		redirect_to product_owner_index_path
 	end
 
 	def edit_product
@@ -57,7 +55,7 @@ class ProductsController < ApplicationController
 	def update_product
 		# byebug
 		@product_info=ProductInformation::ProductService.update_product(params[:product_unique_id],parameters)
-		redirect_to product_index_path
+		redirect_to product_owner_index_path
 	end
 
 
@@ -66,14 +64,6 @@ class ProductsController < ApplicationController
 		@product_info=ProductInformation::ProductService.delete_product(params[:product_unique_id])
 		render json: @product_info
 	end
-
-
-	def order_index	
-		# order = 
-        # order = Order.all
-        # puts "Order"
-        # redirect_to order_index_path  
-    end
 
 
 	private

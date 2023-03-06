@@ -51,38 +51,33 @@ export default class extends Controller {
 
   all_products_dynamic(element){ 
   return`
-  <div class="box" id="div${element.product_unique_id}">
-  <div class="image ">
-      <img src=${element.product_image1.url}  alt="" style=" vertical-align: middle; height: 150px; width: 200px;">
-  </div>
-  <div class="info">
-      <div>
-      <a class="index-anch-new-arrival" href="/products/single_product/${element.product_unique_id}">
-      <h3>${element.product_name}</h3>
-      </a>
-      </div>
-      <div class="subInfo">
-      
-          <strong class="price">₹${element.product_price}/- <span>${element.product_price}/-</span> </strong>
-          <div class="stars">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half"></i>
-          </div>
-      </div>
-      <div class="product-card-buttons">
-      <a class="product-anch btn-info btn" href="/products/edit_product/${element.product_unique_id}">Edit</a>
-      <a class="product-anch btn-danger btn" data-action="click->product#delete" data-product-id-param=${element.product_unique_id} >Delete</a>
-      </div>
-     
-  </div>
-  <div class="overlay">
-      <a href="/carts/add_to_wishlist/${element.product_unique_id}" style="--i:1;" class="fas fa-heart index-anch"></a>
-      <a href="/carts/create_cart/${element.product_unique_id}" style="--i:2;" class="fas fa-shopping-cart index-anch"></a>
-  </div>
-</div>
+  <div class="row" data-search-target="serachData">
+        <div class="image-container">
+            <div class="small-image">
+                <img src="${element.product_image2.url}" class="featured-image-1" alt="">
+                <img src="${element.product_image3.url}" class="featured-image-1" alt="">
+                <img src="${element.product_image4.url}" class="featured-image-1" alt="">
+                <img src="${element.product_image5.url}" class="featured-image-1" alt="">
+            </div>
+            <div class="big-image">
+                <img src="${element.product_image1.url}" class="big-image-1" alt="">
+            </div>
+        </div>
+        <div class="content">
+            <h3>${element.product_name}</h3>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+            </div>
+            <p>${element.product_description}</p>
+            <div class="price">$${element.product_price*29.8/100} <span> $ ${element.product_price}</span></div>
+            <a href="#" class="btn">add to cart</a>
+        </div>
+       
+    </div>
   `
   }
 
@@ -102,8 +97,6 @@ export default class extends Controller {
    
   }
 
-//   search_data(){
-//   console.log("Surya ")
-// }
+
 
 }

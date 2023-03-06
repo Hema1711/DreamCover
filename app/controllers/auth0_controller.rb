@@ -9,17 +9,18 @@ class Auth0Controller < ApplicationController
     # OmniAuth stores the information returned from Auth0 and the IdP in request.env['omniauth.auth'].
     # In this code, you will pull the raw_info supplied from the id_token and assign it to the session.
     # Refer to https://github.com/auth0/omniauth-auth0/blob/master/EXAMPLES.md#example-of-the-resulting-authentication-hash for complete information on 'omniauth.auth' contents.
-    byebug
+    # byebug
     auth_info = request.env['omniauth.auth']
     session[:userinfo] = auth_info['extra']['raw_info']
 
-    $session_user = session[:userinfo].name
-    unique_id = SecureRandom.alphanumeric(20)
-    cart_unique_id =  SecureRandom.alphanumeric(8)
-    current_user= ProductInformation::UserService.create_user(unique_id,$session_user,cart_unique_id)
+    # $session_user = session[:userinfo].name
+    # unique_id = SecureRandom.alphanumeric(20)
+    # cart_unique_id =  SecureRandom.alphanumeric(8)
+    # current_user= ProductInformation::UserService.create_user(unique_id,$session_user,cart_unique_id)
 
     # Redirect to the URL you want after successful auth
-    redirect_to '/users/get_user'
+    # redirect_to '/landing_page'
+    redirect_to login_index_path 
   end
 
 

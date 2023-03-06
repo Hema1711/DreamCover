@@ -1,5 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Wishlist, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  context "model validation" do
+
+    it "validates model association" do
+    is_expected.to validate_uniqueness_of(:email) 
+    end
+  end
 end

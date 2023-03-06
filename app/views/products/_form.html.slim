@@ -11,53 +11,48 @@
                 .col-xl-6.col-lg-6.col-md-6.col-sm-6.col-12
                   .form-group
                     label.lable-class[for="name"]  Product Name
-                    = form.text_field :product_name, class:"box-class-product-t", placeholder:"Enter Product Name", id:"name", data: {"user-target" => "name" , action: "focusout->user#product_name_validation" }
-                .col-xl-6.col-lg-6.col-md-6.col-sm-6.col-12
-                  .form-group
-                    label.lable-class[for="code"] Product Code
-                    = form.text_field :product_code, class:"box-class-product-t", placeholder:"Enter Product Code", id:"code", data: {"user-target" => "code" , action: "focusout->user#code_validation" }
+                    = form.text_field :product_name, class:"box-class-product-t", placeholder:"Enter Product Name", id:"name", data: {"user-target" => "name" , action: "focusout->user#product_name_validation" } ,style:" width: -webkit-fill-available;"
                 .col-xl-6.col-lg-6.col-md-6.col-sm-6.col-12
                   .form-group
                     label.lable-class[for="size"]  Product Size
-                    = form.text_field :product_size, class:"box-class-product-t",required: "required", placeholder:"Enter Product size",  id:"size", data: {"user-target" => "color" , action: "focusout->user#color_validation" }
+                    = form.text_field :product_size, class:"box-class-product-t",required: "required", placeholder:"Enter Product size",  id:"size", data: {"user-target" => "color" , action: "focusout->user#color_validation" } ,style:" width: -webkit-fill-available;"
                 .col-xl-6.col-lg-6.col-md-6.col-sm-6.col-12
                  .form-group
                     label.lable-class[for="price"]  Product Price
-                    = form.text_field :product_price, class:"box-class-product-t",required: "required", placeholder:"Enter  Product Price", id:"price", data: {"user-target" => "price" , action: "focusout->user#price_validation" }
+                    = form.text_field :product_price, class:"box-class-product-t",required: "required", placeholder:"Enter  Product Price", id:"price", data: {"user-target" => "price" , action: "focusout->user#price_validation" } ,style:" width: -webkit-fill-available;"
                 .col-xl-6.col-lg-6.col-md-6.col-sm-6.col-12
                   .form-group
                     label.lable-class[for="desc"] Product Description
-                    = form.text_area  :product_description, class:"box-class-product",placeholder:"Enter Product Description", id:"description", data: {"user-target" => "description" , action: "focusout->user#state_validation" }
+                    = form.text_area  :product_description, class:"box-class-product",placeholder:"Enter Product Description", id:"description", maxlength:"250",data: {"user-target" => "description" , action: "focusout->user#state_validation" } ,style:" width: -webkit-fill-available;"
                 .col-xl-6.col-lg-6.col-md-6.col-sm-6.col-12
                   .form-group
                     label.lable-class[for="image"]  Image 1
-                    = form.file_field :product_image1, class:"box-class-product", placeholder:"Add File ", id:"file"
+                    = form.file_field :product_image1, class:"box-class-product", placeholder:"Add File ", id:"file",style:" width: -webkit-fill-available;"
                 .col-xl-6.col-lg-6.col-md-6.col-sm-6.col-12
                     .form-group
                       label.lable-class[for="image"]  Image 2
-                      = form.file_field :product_image2, class:"box-class-product", placeholder:"Add File ", id:"file"
+                      = form.file_field :product_image2, class:"box-class-product", placeholder:"Add File ", id:"file",style:" width: -webkit-fill-available;"
               
                 .col-xl-6.col-lg-6.col-md-6.col-sm-6.col-12
                     .form-group
                       label.lable-class[for="image"]  Image 3
-                      = form.file_field :product_image3, class:"box-class-product", placeholder:"Add File ", id:"file"
+                      = form.file_field :product_image3, class:"box-class-product", placeholder:"Add File ", id:"file",style:" width: -webkit-fill-available;"
 
                 .col-xl-6.col-lg-6.col-md-6.col-sm-6.col-12
                     .form-group
                       label.lable-class[for="image"]  Image 4
-                      = form.file_field :product_image4, class:"box-class-product", placeholder:"Add File ", id:"file"
+                      = form.file_field :product_image4, class:"box-class-product", placeholder:"Add File ", id:"file",style:" width: -webkit-fill-available;"
                 
                 .col-xl-6.col-lg-6.col-md-6.col-sm-6.col-12
                     .form-group
                       label.lable-class[for="image"]  Image 5
-                      = form.file_field :product_image5, class:"box-class-product", placeholder:"Add File ", id:"file"
+                      = form.file_field :product_image5, class:"box-class-product", placeholder:"Add File ", id:"file" ,style:" width: -webkit-fill-available;"
               
               
               .row.gutters
                 .col-xl-12.col-lg-12.col-md-12.col-sm-12.col-12
                   .text-right
                     .right_align
-                        = form.submit class:'create btn btn-outline-success'
+                        = form.button class:'btn-success' ,style:"font-size:20px;     background: black;"
                     .right_align
-                      button.btn.btn-outline-dark
-                        a.hyper href="/product/product_index"  Cancel 
+                        a.hyper href="/product_owner_index" class="btn btn-dark index-anch" style="font-size: 14px;border-radius: 33px;" Cancel 

@@ -73,6 +73,9 @@ gem 'omniauth-rails_csrf_protection', '~> 1.0' # prevents forged authentication 
 gem "kaminari"
 gem 'slim', '~> 4.1.0'
 
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 gem "byebug"
 
 gem 'rspec-rails', '~> 5.0.0'

@@ -2,28 +2,43 @@ import { Controller } from "@hotwired/stimulus"
 var $count        =   0
 var load_count    =   0
 var search_text   =   ""
-var $sort         =   0
-var sort_order    =   ""
 var quantity = 1
+var product_size = ""
+
 export default class extends Controller {
-  static targets  =   ["newArrival","featuredProduct","productGallery", "productQuantity"]
+  static targets  =   ["newArrival","featuredProduct","productGallery", "productQuantity", "king_size_product","queen_size_product", "kid_size_product"]
 
   connect() {
-    this.new_arrival_products()  
+    this.get_user_location()
+    this.new_arrival_products()
     this.featured_product()
     this.product_gallery()
+    
   }
 
-
   
-// ===================================New Arrival========================================================
-          new_arrival_products() {
-            // console.log("load Count New arival   " + load_count)
+// ===================================New Arrival ========================================================
+    new_arrival_products() {
+            // // console.log("load Count New arival   " + load_count)
+            // if(this.king_size_productTarget.value == "King"){
+            //   product_size = "King"
+            //   console.log(product_size)
+            // }
+            // else if(this.queen_size_productTarget.value == "Queen"){
+            //   product_size = "Queen"
+            //   console.log(product_size)
+            // }
+            // else if(this.kid_size_productTarget.value == "Kid"){
+            //   product_size = "Kid"
+            //    console.log(product_size)
+            // }
+            
+
           fetch("/products/new_arrival", {
 
             method:"POST",
             body: JSON.stringify({
-                "load_count"    :   load_count,
+                // "size": product_size,
                 "search_text"   :   search_text
             }),
 
@@ -34,18 +49,13 @@ export default class extends Controller {
           .then(result=> result.json())
           .then(data=> {
             var detail                                =   ''
-            console.log(data[0])
+         
             $count = data[1]
-            // console.log("Count  " + $count)
-            // console.log("before =  ",load_count)
+           
             load_count                                =   load_count +data[0].length
-            // console.log("load_count Json " + load_count)
-            console.log(data[0])
-
-
+            
 
             data[0].forEach(element => {
-            
                   detail                                  =   detail + this.new_arrival_products_dynamic(element)
                   });
                   this.newArrivalTarget.insertAdjacentHTML("beforeend",detail)
@@ -56,11 +66,11 @@ export default class extends Controller {
 
 
 
-    new_arrival_products_dynamic(element){ 
+      new_arrival_products_dynamic(element){ 
       return`
       <div class="box" id="div${element.product_unique_id}">
             <div class="image ">
-                <img src=${element.product_image1.url}  alt="" style=" vertical-align: middle; height: 150px; width: 200px;">
+                <img src=${element.product_image1.url}  alt="" style=" vertical-align: middle; height: 175px; width: 400px;">
             </div>
             <div class="info">
                 <div>
@@ -79,10 +89,7 @@ export default class extends Controller {
                         <i class="fas fa-star-half"></i>
                     </div>
                 </div>
-                <div class="product-card-buttons">
-                <a class="product-anch btn-info btn" href="/products/edit_product/${element.product_unique_id}">Edit</a>
-                <a class="product-anch btn-danger btn" data-action="click->product#delete" data-product-id-param=${element.product_unique_id} >Delete</a>
-                </div>
+
                
             </div>
             <div class="overlay">
@@ -107,24 +114,18 @@ export default class extends Controller {
           </div>
       `
     }
-
-    
+// ===================================New Arrival  Ends///////////////////////////////////////////////////
 
 
     product_quantity(){
-      console.log("product_quantity")
       quantity = this.productQuantityTarget.value
-      console.log(quantity)
+      
     }
 
     add_to_cart(data){
       console.log("add_to_cart")
       var product_unique_id = data.params.id
-      console.log(product_unique_id)
-      console.log("quantity"+quantity)
-
-
-
+     
       fetch("/carts/add_to_cart", {
 
         method:"POST",
@@ -138,11 +139,7 @@ export default class extends Controller {
 
     add_to_wishlist(data){
    
-        console.log("add_to_cart")
         var product_unique_id = data.params.id
-        console.log(product_unique_id)
-        console.log("quantity"+quantity)
-  
         fetch("/carts/add_to_wishlist", {
   
           method:"POST",
@@ -230,7 +227,7 @@ export default class extends Controller {
       </div>
       <p>!${data.product_description}</p>
       <strong class="price">₹ ${data.product_price}<span>₹1500</span> </strong>
-      <a href="#"><button class="btn-index">buy now</button></a>
+      <a data-action="click->product#add_to_cart" class="btn-index index-anch" href="#">Add to Cart</a>
 
     </div>
       `
@@ -266,37 +263,72 @@ export default class extends Controller {
 
     product_gallery_dynamic(element){
       return`
-      <div class="box phone">
+      <div class="row"  data-product-owner-target="productGallery">
+      <div class="image-container">
+          <div class="small-image">
+              <img src="${element.product_image2.url}" style="width: 100px; height: 100px;" class="featured-image-1" alt="">
+              <img src="${element.product_image3.url}" style="width: 100px; height: 100px;" class="featured-image-1" alt="">
+              <img src="${element.product_image4.url}" style="width: 100px; height: 100px;" class="featured-image-1" alt="">
+              <img src="${element.product_image5.url}" style="width: 100px; height: 100px;" class="featured-image-1" alt="">
+          </div>
+          <div class="big-image">
+              <img src="${element.product_image1.url}" style="width: 400px; height: 400px;"class="big-image-1" alt="">
+          </div>
+      </div>
+      <div class="content">
+          <a class="index-anch-new-arrival" href="/products/single_product/${element.product_unique_id}">
+          <h3>${element.product_name}</h3>
+          </a>
+          <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+          </div>
+          <p>${element.product_description}</p>
+          <div class="price">$${element.product_price*29.8/100} <span> $ ${element.product_price}</span></div>
+          <div class="product-card-buttons">
+          <a data-action="click->product#add_to_wishlist"  data-product-id-param ="${element.product_unique_id}" class="fas fa-heart product-gallery-anch ">Add To Wishlish</a>
+          <a  data-action="click->product#add_to_cart" id="liveToastBtn" data-product-id-param ="${element.product_unique_id}"   class="fas fa-shopping-cart product-gallery-anch " >Add To Cart</a>
+          </div>
+      </div>
      
-        <div class="image">
-        <a class="index-anch-new-arrival" href="/products/single_product/${element.product_unique_id}">
-            <img src="${element.product_image1.url}" alt=""> </a>
-        </div>
-        <div class="info">
-        <div class="product-gallery-clips">
-        
-        
-      </div>
-        <a class="index-anch-new-arrival" href="/products/single_product/${element.product_unique_id}">    
-        <h3>${element.product_name}</h3>
-        <a data-action="click->product#add_to_wishlist"  data-product-id-param ="${element.product_unique_id}" class="fas fa-heart index-anch" style="color:var(--orange) ;font-size:x-large";></a>
-        <a data-action="click->product#add_to_cart" data-product-id-param ="${element.product_unique_id}"  class="fas fa-shopping-cart index-anch" style="color:var(--black) ;font-size:x-large";></a>
-        </a>
-       
-            <div class="subInfo">
-                <strong class="price">₹ ${element.product_price}</strong>
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star-half"></i>
-                </div>
-            </div>
-        </div>
-       
-      </div>
+    </div>
       `
     }
+
+
+// =======================Location=========================================================
+get_user_location(){
+  if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(showPosition);
+    // this.detail_code(data)
+  } else { 
+    document.getElementById("demo").innerHTML =
+    "Geolocation is not supported by this browser.";
+  }
+  
+  function showPosition(position) {
+
+    // console.log(position.coords.latitude)
+
+    const lat = position.coords.latitude;
+    const lon = position.coords.logitude;
+  
+    const geoApiUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude-${lat}&longitude-${lon}& localityLanguage-en`
+  
+    fetch (geoApiUrl)
+    .then(res => res.json())
+    .then(data => { 
+    
+    })
+  } 
+}
+detail_code(){
+  console.log("Detail")
+}
+
+    
 
 }

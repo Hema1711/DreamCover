@@ -1,6 +1,6 @@
 
 
-<body  data-controller = "location">
+<body  data-controller = "product">
 
 <!-- home section starts  -->
 
@@ -10,8 +10,7 @@
         <h3>New </span> products for your</h3>
         <p></p>
  
-
-  <%= button_to "View more", product_index_path, :method => :get,  class:"btn-index index-anch" %>
+    <%= link_to "View more", product_index_path, :method => :get,  class:"btn-index index-anch" %> 
 
     </div>
 
@@ -41,7 +40,9 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star-half-alt"></i>
                 </div>
-                <%= button_to "View more", product_index_path, :method => :get,  class:"btn-index index-anch" %>
+                  <%= link_to "View more", product_index_path, :method => :get,  class:"btn-index index-anch" %> 
+                <!--<%= button_to "View more",product_index_path, :method => :get,  class:"btn-index index-anch",  value:"King" , data: {"product-target" => "king_size_product" , action: "click->product#new_arrival_products_dynamic_admin" }%>
+                <button value="king" class="btn-index index-anch" data-action= "click->product#new_arrival_products_dynamic_admin"  >View More2 </button>-->
             </div>
 
              <div class="swiper-slide box swiper-slide-duplicate"style="width: 393px; margin-right: 20px;">
@@ -54,7 +55,8 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star-half-alt"></i>
                 </div>
-                <%= button_to "View more", product_index_path, :method => :get,  class:"btn-index index-anch" %>
+                <%= link_to "View more", product_index_path, :method => :get,  class:"btn-index index-anch" %> 
+                <!--<%= button_to "View more",product_index_path, :method => :get,  class:"btn-index index-anch",  value:"Queen" , data: {"product-target" => "queen_size_product" , action: "click->product#new_arrival_products_dynamic_admin" }%>-->
             </div>
 
            <div class="swiper-slide box swiper-slide-duplicate"style="width: 393px; margin-right: 20px;">
@@ -67,7 +69,8 @@
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star-half-alt"></i>
                 </div>
-                  <%= button_to "View more", product_index_path, :method => :get,  class:"btn-index index-anch" %>
+                <%= link_to "View more", product_index_path, :method => :get,  class:"btn-index index-anch" %> 
+                   <!--<%= button_to "View more",product_index_path, :method => :get,  class:"btn-index index-anch",  value:"Kid" , data: {"product-target" => "kid_size_product" , action: "click->product#new_arrival_products_dynamic_admin" }%>-->
             </div>
 
         </div>
@@ -77,43 +80,14 @@
 </section>
 <section class="deal" id="deal">
     
-    <h1 class="heading"> <span> best deals </span> </h1>
-    
-    <div class="box-container">
-    
-        <div class="box">
-            <img src="/assets/bed-sheet-1.jpg" alt="">
-            <div class="content">
-                <h3>latest bedsheet</h3>
-                <p>upto 25% off on first purchase</p>
-                <%= button_to "explore", product_index_path, :method => :get,  class:"btn-index index-anch" %>
-            </div>
-        </div>
-    
-        <div class="box">
-            <img src="/assets/bed-sheet-5.jpg" alt="">
-            <div class="content">
-                <h3>new bedsheet</h3>
-                <p>upto 25% off on first purchase</p>
-                <%= button_to "explore", product_index_path, :method => :get,  class:"btn-index index-anch" %>
-            </div>
-        </div>
-    
-    </div>
-    
     <div class="icons-container">
     
         <div class="icons">
             <i class="fas fa-shipping-fast"></i>
             <h3>fast delivery</h3>
-            <p>Everything at your doorstep</p>
+            <p>We make deliveries fast, so you can get back to other stuff faster 😉</p>
         </div>
-    
-        <div class="icons">
-            <i class="fas fa-user-clock"></i>
-            <h3>24 x 7 support</h3>
-            <p>The sole reason we are in business is to make life less difficult for our clients</p>
-        </div>
+
     
         <div class="icons">
             <i class="fas fa-money-check-alt"></i>
